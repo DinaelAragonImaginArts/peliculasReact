@@ -1,0 +1,6 @@
+.title {
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 0 0 1rem rgb(255, 166, 0), 0 0 2rem rgb(255, 166, 0), 0 0 3rem rgb(255, 166, 0), 0 0 4rem rgb(255, 166, 0),
+    0 0 5rem rgb(255, 166, 0), 0 0 6rem rgb(255, 166, 0), 0 0 7rem rgb(255, 166, 0);
+}
