@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { HttpClient } from "../utils/HttpClient";
 import { Spiner } from '../components/Spiner'
 import style from './MovieDetails.module.css';
+import { GetMovieImg } from '../utils/GetMovieImg';
 
 export function MovieDetails() {
    
@@ -12,6 +13,7 @@ export function MovieDetails() {
     
     useEffect(() => {
         setIsLoading(true);
+
         HttpClient("/movie/" + movieId).then((data) => {
             setMovie(data);
             setIsLoading(false);
@@ -22,18 +24,16 @@ export function MovieDetails() {
           return <Spiner />
       }
     
-    if (!movie){
-        return null; 
-    } 
-
-    const imageUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+    
+    const imageUrl = GetMovieImg(movie.poster_path, 500)
     return (
         <div className={style.detailsContainer}>
             <img className={`${style.col}  ${style.movieImage}`} src={imageUrl} alt={movie.title} />
             <div className={`${style.col}  ${style.movieDetails}`}>
                 <p className={style.firstItem}><strong>Title:</strong> {movie.title}</p>
                 <p>
-                    <strong>Genres: </strong> {movie.genres.map(genre => genre.name).join(" - ")}
+                    <strong>Genres: </strong>{ " " } 
+                    {movie.genres.map(genre => genre.name).join(" - ")}
                 </p>
                 <p><strong>Description:</strong> {movie.overview}</p>
 
