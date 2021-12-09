@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MovieCard } from './MovieCard';
 import { HttpClient } from "../utils/HttpClient";
 import styles from './MoviesGrid.module.css';
 import { Spiner } from "./Spiner";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { Empty } from './Empty'
 
 export function MoviesGrid({ search }) {
     const [movies, setMovies] = useState([]);
@@ -14,14 +14,23 @@ export function MoviesGrid({ search }) {
 
     useEffect(() => {
         setIsLoading(true);
-        const searchUrl = search ? '/search/movie?query=' + search +"&page=" + page : "/discover/movie?page=" + page;
-        HttpClient(searchUrl).then(data => {
+        
+        const searchUrl = search 
+        ? '/search/movie?query=' + search +"&page=" + page 
+        : "/discover/movie?page=" + page;
+
+        HttpClient(searchUrl).then((data) => {
             setMovies((prevMovies) => prevMovies.concat(data.results));
             setHasMore(data.page < data.total_pages);
+            
             setIsLoading(false);
         });
 
     }, [search, page]);
+
+    if (!isLoading && movies.length  === 0 ){
+        return <Empty />
+    }
    
 
     return (
