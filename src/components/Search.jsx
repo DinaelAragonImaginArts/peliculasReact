@@ -19,7 +19,7 @@ export function Search() {
                     const value = e.target.value;
                     history.push(`/?search=${value}`);
                 }} />
-                <button type="submit" className={style.searchButton}><FaSearch /></button>
+            <FaSearch size={20} className={style.searchButton} color="black" />
             </div>
         </form>
     )
